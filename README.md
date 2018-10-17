@@ -2,6 +2,13 @@
 
 The REST API to the example app is described below.
 
+
+## About solution
+- Solution is implemented in .NET Core 2.1
+- Implemented swagger for testing
+- Database create and seed data on startup
+- API, services and repository are separated
+
 ## List Blog Posts
 
 ### Request
