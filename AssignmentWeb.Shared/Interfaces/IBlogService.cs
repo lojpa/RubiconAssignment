@@ -9,5 +9,3 @@ namespace AssignmentWeb.Domain.Interfaces
     
     }
 }
-
-//PROVJERITI
