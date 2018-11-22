@@ -31,8 +31,13 @@ namespace AssignmentWeb.Repository.Repositories
         public async Task<Post> Get(string slug)
         {
             var post = await _context.Posts.Include(x => x.PostTags).ThenInclude(y => y.Tag).FirstOrDefaultAsync(x => x.Slug == slug);
-            post.TagList = post.PostTags.Select(x => x.TagId).ToList();
 
+            if (post == null)
+            {
+                return null;
+            }
+
+            post.TagList = post.PostTags.Select(x => x.TagId).ToList();
             return post;
         }
 
@@ -58,7 +63,7 @@ namespace AssignmentWeb.Repository.Repositories
             return listOfPosts;
         }
 
-        public async Task<Post> Create(Post post)
+        public async Task<BlogPostViewModel> Create(Post post)
         {
             post.Slug = Helper.Helper.GenerateSlug(post.Title);
             post.CreatedAt = DateTime.UtcNow;
@@ -87,9 +92,9 @@ namespace AssignmentWeb.Repository.Repositories
                 post.PostTags.Add(postTag);
 
             }
-            noTags: await _context.SaveChangesAsync();
-            post.PostTags = null;
-            return post;
+        noTags: await _context.SaveChangesAsync();
+            var postVM = Mapper.Map<BlogPostViewModel>(post);
+            return postVM;
         }
 
         public async Task<Post> Update(Post post)

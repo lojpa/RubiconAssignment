@@ -9,7 +9,7 @@ namespace AssignmentWeb.Repository.Repositories
         Task<BlogPostViewModel> GetVM(string slug);
         Task<Post> Get(string slug);
         Task<IEnumerable<BlogPostViewModel>> Search(string tag);
-        Task<Post> Create(Post post);
+        Task<BlogPostViewModel> Create(Post post);
         Task<Post> Update(Post post);
         Task Remove(string slug);
     }
