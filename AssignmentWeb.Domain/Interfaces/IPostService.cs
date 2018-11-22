@@ -9,7 +9,7 @@ namespace AssignmentWeb.Domain.Interfaces
         Task<BlogPostViewModel> GetPostVM(string slug);
         Task<Post> GetPost(string slug);
         Task<IEnumerable<BlogPostViewModel>> Search(string tag);
-        Task<Post> Create(Post post);
+        Task<BlogPostViewModel> Create(Post post);
         Task<Post> Update(Post post);
         Task Delete(string slug);
 

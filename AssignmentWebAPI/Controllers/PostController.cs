@@ -22,15 +22,17 @@ namespace AssignmentWeb.API.Controllers
         [HttpGet("{slug}")]
         public async Task<ActionResult<BlogPostViewModel>> GetPost(string slug)
         {
-            var posts = await _postService.GetPostVM(slug);
-            return Ok(posts);
+            var post = await _postService.GetPostVM(slug);
+            if (post == null)
+                return NotFound();
+            return Ok(new { blogPost = post });
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BlogPostViewModel>>> GetPosts(string tag)
         {
             var posts = await _postService.Search(tag);
-            return Ok(new { posts = posts, postsCount = posts.Count()});
+            return Ok(new { blogPosts = posts, postsCount = posts.Count() });
         }
 
         [HttpPost]
@@ -45,7 +47,7 @@ namespace AssignmentWeb.API.Controllers
         {
             var existingPost = await _postService.GetPost(slug);
 
-            if(existingPost == null)
+            if (existingPost == null)
             {
                 return NotFound();
             }
@@ -53,7 +55,7 @@ namespace AssignmentWeb.API.Controllers
             if (!string.IsNullOrWhiteSpace(title))
             {
                 existingPost.Title = title;
-                existingPost.Slug = Helper.GenerateSlug(title); 
+                existingPost.Slug = Helper.GenerateSlug(title);
             }
             existingPost.Body = body ?? existingPost.Body;
             existingPost.Description = description ?? existingPost.Description;
@@ -69,7 +71,7 @@ namespace AssignmentWeb.API.Controllers
             return NoContent();
         }
 
-       
+
 
 
 

@@ -33,7 +33,7 @@ namespace AssignmentWeb.Domain.Services
             return posts;
         }
 
-        public Task<Post> Create(Post post)
+        public Task<BlogPostViewModel> Create(Post post)
         {
             var createdPost = _postRepository.Create(post);
             return createdPost;
@@ -48,7 +48,7 @@ namespace AssignmentWeb.Domain.Services
 
         public async Task Delete(string slug)
         {
-           await _postRepository.Remove(slug);
+            await _postRepository.Remove(slug);
         }
     }
 }
